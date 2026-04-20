@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--bg: #f5f6ef;
+		--panel: #ffffff;
+		--panel-soft: #f2f5ee;
+		--ink: #152022;
+		--muted: #566466;
+		--line: #d3ddd2;
+		--brand: #0e7c66;
+		--brand-strong: #095e4e;
+		--alert: #b94a2f;
+		--ok: #187a4f;
+		--warn: #a96900;
+	}
+
+	* {
+		@apply box-border;
+	}
+
+	body {
+		@apply min-h-screen antialiased;
+		font-family: 'Manrope', 'Segoe UI', sans-serif;
+		color: var(--ink);
+		background:
+			radial-gradient(circle at 90% 10%, rgba(14, 124, 102, 0.12) 0, rgba(14, 124, 102, 0) 40%),
+			radial-gradient(circle at 0% 100%, rgba(239, 150, 84, 0.16) 0, rgba(239, 150, 84, 0) 35%),
+			var(--bg);
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-family: 'Fraunces', 'Georgia', serif;
+		letter-spacing: 0.01em;
+	}
+
+	input,
+	select,
+	textarea {
+		@apply w-full rounded-xl border px-3 py-2.5 text-sm transition outline-none;
+		border-color: var(--line);
+		background: #fcfefc;
+	}
+
+	input:focus,
+	select:focus,
+	textarea:focus {
+		border-color: rgba(14, 124, 102, 0.65);
+		box-shadow: 0 0 0 3px rgba(14, 124, 102, 0.16);
+	}
+
+	button {
+		@apply transition duration-200;
+	}
+}
+
+@layer components {
+	.page-wrap {
+		@apply mx-auto w-full max-w-6xl px-4 py-8 md:px-6 md:py-10;
+	}
+
+	.page-title {
+		@apply text-3xl leading-tight text-slate-900 md:text-4xl;
+	}
+
+	.page-subtitle {
+		@apply mt-2 text-sm text-slate-600 md:text-base;
+		color: var(--muted);
+	}
+
+	.panel {
+		@apply rounded-2xl border p-4 shadow-sm md:p-6;
+		border-color: var(--line);
+		background: var(--panel);
+	}
+
+	.panel-soft {
+		@apply rounded-2xl border p-4;
+		border-color: var(--line);
+		background: var(--panel-soft);
+	}
+
+	.btn {
+		@apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold;
+	}
+
+	.btn-primary {
+		@apply text-white;
+		background: linear-gradient(135deg, var(--brand), #158f76);
+	}
+
+	.btn-primary:hover {
+		background: linear-gradient(135deg, var(--brand-strong), #0e7c66);
+	}
+
+	.btn-secondary {
+		@apply border text-slate-700;
+		border-color: var(--line);
+		background: #f8faf8;
+	}
+
+	.btn-secondary:hover {
+		background: #eff4ef;
+	}
+
+	.btn-danger {
+		@apply text-white;
+		background: linear-gradient(135deg, #c05035, var(--alert));
+	}
+
+	.btn-danger:hover {
+		background: linear-gradient(135deg, #a53f27, #943822);
+	}
+
+	.btn-success {
+		@apply text-white;
+		background: linear-gradient(135deg, #258f5f, var(--ok));
+	}
+
+	.btn-success:hover {
+		background: linear-gradient(135deg, #1f7e53, #156640);
+	}
+
+	.table-shell {
+		@apply overflow-hidden rounded-2xl border;
+		border-color: var(--line);
+		background: var(--panel);
+	}
+
+	.pill {
+		@apply inline-flex rounded-full px-2.5 py-1 text-xs font-semibold;
+	}
+
+	.auth-shell {
+		@apply min-h-screen px-4 py-10 md:px-6;
+		display: grid;
+		place-items: center;
+	}
+
+	.auth-card {
+		@apply w-full max-w-5xl overflow-hidden rounded-3xl border shadow-xl;
+		border-color: var(--line);
+		background: var(--panel);
+	}
+
+	.auth-grid {
+		@apply grid md:grid-cols-2;
+	}
+
+	.auth-hero {
+		@apply hidden p-8 md:block;
+		background:
+			linear-gradient(160deg, rgba(14, 124, 102, 0.92) 0%, rgba(10, 93, 77, 0.96) 100%);
+		color: #e9fff8;
+	}
+}

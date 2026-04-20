@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "workflowControl": {
+      "command": "node",
+      "args": [
+        "./mcp/workflow-control-server.mjs"
+      ],
+      "env": {
+        "WORKFLOW_STATE_PATH": "./.workflow/state.json"
+      }
+    }
+  }
+}

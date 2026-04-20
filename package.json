@@ -1,0 +1,17 @@
+{
+  "name": "copilot-multi-agent-flow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "VS Code Copilot multi-agent flow with workflow-control MCP server",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "mcp:workflow": "node mcp/workflow-control-server.mjs",
+    "validate": "node scripts/validate-workflow.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0"
+  }
+}

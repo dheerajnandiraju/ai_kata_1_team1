@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "workflowControl": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/mcp/workflow-control-server.mjs"
+      ],
+      "env": {
+        "WORKFLOW_STATE_PATH": "${workspaceFolder}/.workflow/state.json"
+      },
+      "dev": {
+        "watch": "${workspaceFolder}/mcp/workflow-control-server.mjs"
+      }
+    }
+  }
+}

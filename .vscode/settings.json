@@ -1,0 +1,106 @@
+{
+  // ── Nested subagents (v1.113) ─────────────────────────────────────────────
+  // Allows subagents to invoke other subagents — required for module-coding-agent
+  // to be spawned by coding-agent and for bugfix-agent to re-invoke testing-agent.
+  "chat.subagents.allowInvocationsFromSubagents": true,
+
+  // ── Custom agents as subagents (v1.109) ───────────────────────────────────
+  // Enables .agent.md files to be invoked as subagents by other agents.
+  // Required for the orchestrator→requirements→architecture→coding chain.
+  "chat.customAgentInSubagent.enabled": true,
+
+  // ── Agent Skills (v1.109 GA) ──────────────────────────────────────────────
+  // Ensures skills in .github/skills are active during agent runs.
+  "chat.useAgentSkills": true,
+
+  // ── Custom agent hooks (v1.111) ───────────────────────────────────────────
+  // Enables agent-scoped hooks declared in .agent.md frontmatter.
+  "chat.useCustomAgentHooks": true,
+
+  // ── Agent plugins marketplace (v1.110) ────────────────────────────────────
+  // Keeps plugin-based capabilities available when the workflow grows.
+  "chat.plugins.enabled": true,
+
+  // ── Autopilot mode (v1.111) ───────────────────────────────────────────────
+  // Auto-approves all tool calls, auto-responds to askQuestions, and lets
+  // agents iterate autonomously until task_complete is called. Use with caution.
+  "chat.autopilot.enabled": true,
+
+  // ── Message steering and queueing (v1.109 experimental) ──────────────────
+  // Send follow-up messages while a request is still running — steer, queue,
+  // or stop-and-send. Default action: steer (redirect on wrong path).
+  "chat.requestQueuing.enabled": true,
+
+  // ── Search subagent (v1.109 experimental) ─────────────────────────────────
+  // Isolates complex codebase searches in a dedicated context window, preserving
+  // the main agent's token budget for implementation work.
+  "github.copilot.chat.searchSubagent.enabled": true,
+
+  // ── Copilot Memory (v1.109) ───────────────────────────────────────────────
+  // Persists important context (requirements decisions, patterns, preferences)
+  // across sessions so agents don't need re-briefing on every run.
+  "github.copilot.chat.copilotMemory.enabled": true,
+
+  // ── Agent debug logging (v1.110/v1.116) ───────────────────────────────────
+  // Persist agent session logs to disk for post-mortem debugging and sharing.
+
+  // ── MCP server auto-start (v1.100 experimental) ───────────────────────────
+  // Start new or outdated MCP servers automatically for this workspace.
+  "chat.mcp.autostart": "newAndOutdated",
+
+  // ── Agent debug log file export (v1.116) ──────────────────────────────────
+  // Persist agent session logs to disk for post-mortem debugging and sharing.
+  "github.copilot.chat.agentDebugLog.fileLogging.enabled": true,
+
+  // ── Autofix diagnostics (v1.100) ──────────────────────────────────────────
+  // Agent auto-detects and proposes fixes when an edit introduces new errors.
+  "github.copilot.chat.agent.autoFix": true,
+
+  // ── Background terminal notifications (v1.116) ────────────────────────────
+  // Completion and input-needed notifications are now always enabled by VS Code.
+
+  // ── Parent repo customizations (v1.112) ───────────────────────────────────
+  // In monorepo setups, discover copilot-instructions.md, skills, agents, and
+  // hooks from parent Git root even when opening a sub-package folder.
+  "chat.useCustomizationsInParentRepositories": true,
+
+  // ── Agent Skills locations (v1.109 GA) ────────────────────────────────────
+  // VS Code looks for skills in .github/skills by default. Entries here add
+  // additional search paths for shared team skills.
+  "chat.agentSkillsLocations": {
+    ".github/skills": true
+  },
+
+  // ── Agent file locations (v1.109) ─────────────────────────────────────────
+  // .github/agents is the default; no extra paths needed unless sharing.
+  "chat.agentFilesLocations": {
+    ".github/agents": true
+  },
+
+  // ── Agentic browser tools (v1.110) ───────────────────────────────────────
+  // Enables browser automation tools for agents: open_browser_page,
+  // navigate_page, screenshot_page, read_page, run_playwright_code, etc.
+  // Required by testing-agent (E2E tests) and deployment-agent (smoke tests).
+  "workbench.browser.enableChatTools": true,
+
+  // ── Semantic codebase search (v1.114) ─────────────────────────────────────
+  // #codebase tool is now purely semantic — no local vs remote distinction.
+  // Agents should use #codebase explicitly for semantic searches.
+
+  // ── Autopilot mode guidance ───────────────────────────────────────────────
+  // In automatic mode, use Bypass Approvals or Autopilot permission level
+  // in the Chat view to let agents run end-to-end without confirmation dialogs.
+
+  // ── Terminal auto-approve safe commands ───────────────────────────────────
+  "chat.tools.terminal.autoApprove": {
+    "node --check": true,
+    "/^npm (install|test|run build|run lint|run validate)$/": true,
+    "/^npm\\.cmd (install|test|run build|run lint|run validate)$/": true,
+    "/^npx .+$/": true,
+    "/^docker compose (build|up -d|down|ps|logs.*)$/": true,
+    "/^docker-compose (build|up -d|down|ps|logs.*)$/": true,
+    "/^git (status|log|diff)$/": true,
+    "/^node scripts\\/validate-workflow\\.mjs$/": true,
+    "mkdir": true
+  }
+}

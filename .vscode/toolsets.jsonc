@@ -1,0 +1,75 @@
+{
+  // Tool sets for the multi-agent SDLC workflow (v1.100+)
+  // Reference in prompts with # prefix, e.g. #reader, #writer, #runner
+  // Use in agent frontmatter tools list as the tool set name.
+
+  "reader": {
+    "tools": [
+      "search/codebase",
+      "search/changes",
+      "search/usages",
+      "read/problems",
+      "search"
+    ],
+    "description": "Semantic search, change history, symbol usages — read-only context gathering",
+    "icon": "book"
+  },
+
+  "writer": {
+    "tools": [
+      "edit/editFiles",
+      "web/fetch"
+    ],
+    "description": "File editing and web fetching for implementation phases",
+    "icon": "edit"
+  },
+
+  "runner": {
+    "tools": [
+      "execute/runInTerminal",
+      "execute/getTerminalOutput",
+      "read/terminalLastCommand",
+      "read/terminalSelection"
+    ],
+    "description": "Terminal execution — run tests, builds, linters",
+    "icon": "terminal"
+  },
+
+  "workflow": {
+    "tools": [
+      "workflowControl/get_workflow_state",
+      "workflowControl/get_resume_target",
+      "workflowControl/get_execution_mode",
+      "workflowControl/set_execution_mode",
+      "workflowControl/set_execution_mode_override",
+      "workflowControl/clear_execution_mode_override",
+      "workflowControl/start_stage",
+      "workflowControl/save_stage_checkpoint",
+      "workflowControl/get_stage_checkpoint",
+      "workflowControl/advance_stage",
+      "workflowControl/get_next_agent",
+      "workflowControl/rollback_to_stage",
+      "workflowControl/complete_workflow",
+      "workflowControl/reset_workflow",
+      "workflowControl/create_change_request",
+      "workflowControl/update_change_request",
+      "workflowControl/get_change_requests",
+      "workflowControl/register_subtask",
+      "workflowControl/complete_subtask",
+      "workflowControl/get_subtasks"
+    ],
+    "description": "All workflow-control MCP tools for state management and stage transitions",
+    "icon": "organization"
+  },
+
+  "security-scanner": {
+    "tools": [
+      "search/codebase",
+      "search/changes",
+      "read/problems",
+      "web/fetch"
+    ],
+    "description": "Security review — search for vulnerabilities, fetch CVE references",
+    "icon": "shield"
+  }
+}
