@@ -1,2 +1,5 @@
 node_modules/
 .workflow/
+.env
+.env.*
+!.env.example
