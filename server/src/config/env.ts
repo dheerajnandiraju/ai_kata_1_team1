@@ -13,4 +13,8 @@ export const env = {
   BCRYPT_ROUNDS: Number(process.env.BCRYPT_ROUNDS) || 12,
   SEED_ADMIN_EMAIL: process.env.SEED_ADMIN_EMAIL || 'admin@company.com',
   SEED_ADMIN_PASSWORD: process.env.SEED_ADMIN_PASSWORD || 'Admin@12345',
+  SMTP_HOST: process.env.SMTP_HOST || 'smtp.gmail.com',
+  SMTP_PORT: Number(process.env.SMTP_PORT) || 587,
+  SMTP_USER: process.env.SMTP_USER || '',
+  SMTP_APP_PASSWORD: process.env.SMTP_APP_PASSWORD || '',
 };

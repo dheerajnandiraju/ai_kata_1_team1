@@ -1,6 +1,7 @@
 import { SupplyRequest } from './model';
 import { deductStock } from '../inventory/service';
 import { InventoryItem } from '../inventory/model';
+import { sendRequestStatusEmail } from '../../services/mailer';
 
 export const createRequest = async (userId: string, itemName: string, quantity: number, remarks?: string) => {
   const req = new SupplyRequest({ requestedBy: userId, itemName, quantity, remarks });
@@ -59,7 +60,21 @@ export const approveRequest = async (requestId: string, adminId: string) => {
   request.actionedAt = new Date();
   await request.save();
   await deductStock(request.itemName, request.quantity);
-  return request.populate(['requestedBy', 'actionedBy']);
+  const populated = await request.populate(['requestedBy', 'actionedBy']);
+
+  // Send email notification (fire-and-forget)
+  const user = populated.requestedBy as unknown as { name: string; email: string };
+  if (user?.email) {
+    sendRequestStatusEmail({
+      to: user.email,
+      employeeName: user.name,
+      itemName: request.itemName,
+      quantity: request.quantity,
+      status: 'approved',
+    });
+  }
+
+  return populated;
 };
 
 export const rejectRequest = async (requestId: string, adminId: string, reason?: string) => {
@@ -71,5 +86,20 @@ export const rejectRequest = async (requestId: string, adminId: string, reason?:
   request.actionedAt = new Date();
   if (reason) request.rejectionReason = reason;
   await request.save();
-  return request.populate(['requestedBy', 'actionedBy']);
+  const populated = await request.populate(['requestedBy', 'actionedBy']);
+
+  // Send email notification (fire-and-forget)
+  const user = populated.requestedBy as unknown as { name: string; email: string };
+  if (user?.email) {
+    sendRequestStatusEmail({
+      to: user.email,
+      employeeName: user.name,
+      itemName: request.itemName,
+      quantity: request.quantity,
+      status: 'rejected',
+      rejectionReason: reason,
+    });
+  }
+
+  return populated;
 };
