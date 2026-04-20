@@ -1,0 +1,67 @@
+.employee-dashboard {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.employee-dashboard h2 {
+  margin-bottom: 1.5rem;
+  color: #1a365d;
+}
+
+.empty-state {
+  text-align: center;
+  color: #718096;
+  padding: 3rem 0;
+  font-size: 1.1rem;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.data-table th {
+  background: #f7fafc;
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-table tbody tr:hover {
+  background: #f7fafc;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge-pending {
+  background: #fefcbf;
+  color: #975a16;
+}
+
+.badge-approved {
+  background: #c6f6d5;
+  color: #276749;
+}
+
+.badge-rejected {
+  background: #fed7d7;
+  color: #c53030;
+}

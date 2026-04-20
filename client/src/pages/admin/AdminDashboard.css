@@ -1,0 +1,96 @@
+.admin-dashboard {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.admin-dashboard h2 {
+  margin-bottom: 1.5rem;
+  color: #1a365d;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-tab {
+  padding: 0.5rem 1.25rem;
+  border: 1px solid #cbd5e0;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.filter-tab.active {
+  background: #3182ce;
+  color: #fff;
+  border-color: #3182ce;
+}
+
+.filter-tab:hover:not(.active) {
+  background: #edf2f7;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-approve {
+  background: #48bb78;
+  color: #fff;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-approve:hover {
+  background: #38a169;
+}
+
+.btn-reject {
+  background: #e53e3e;
+  color: #fff;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-reject:hover {
+  background: #c53030;
+}
+
+.btn-cancel {
+  background: #a0aec0;
+  color: #fff;
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.reject-form {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.reject-form input {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  width: 150px;
+}
