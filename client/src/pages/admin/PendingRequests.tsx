@@ -1,0 +1,109 @@
+import React, { useEffect, useState } from 'react';
+import { requestsApi, SupplyRequest } from '../../api/requests';
+import StatusBadge from '../../components/StatusBadge';
+import toast from 'react-hot-toast';
+
+const PAGE_SIZE = 10;
+
+const PendingRequests: React.FC = () => {
+  const [requests, setRequests] = useState<SupplyRequest[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+
+  const load = async (p = 1) => {
+    try {
+      const res = await requestsApi.pending({ page: p, limit: PAGE_SIZE });
+      setRequests(res.data.requests);
+      setTotal(res.data.total);
+      setPage(p);
+    } catch {
+      toast.error('Failed to load pending requests');
+    }
+  };
+
+  useEffect(() => { load(1); }, []);
+
+  const handleApprove = async (id: string) => {
+    try {
+      await requestsApi.approve(id);
+      toast.success('Request approved');
+      load(page);
+    } catch {
+      toast.error('Failed to approve');
+    }
+  };
+
+  const handleReject = async (id: string) => {
+    const reason = window.prompt('Rejection reason (optional):') ?? undefined;
+    try {
+      await requestsApi.reject(id, { reason });
+      toast.success('Request rejected');
+      load(page);
+    } catch {
+      toast.error('Failed to reject');
+    }
+  };
+
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+
+  return (
+    <div style={styles.page}>
+      <h1 style={styles.heading}>Pending Requests ({total})</h1>
+      <table style={styles.table}>
+        <thead>
+          <tr style={styles.headerRow}>
+            <th style={styles.th}>Employee</th>
+            <th style={styles.th}>Item</th>
+            <th style={styles.th}>Qty</th>
+            <th style={styles.th}>Remarks</th>
+            <th style={styles.th}>Date</th>
+            <th style={styles.th}>Status</th>
+            <th style={styles.th}>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requests.length === 0 && (
+            <tr><td colSpan={7} style={{ textAlign: 'center', padding: '2rem', color: '#94a3b8' }}>No pending requests.</td></tr>
+          )}
+          {requests.map((r) => (
+            <tr key={r._id} style={styles.row}>
+              <td style={styles.td}>{r.requestedBy.name}</td>
+              <td style={styles.td}>{r.itemName}</td>
+              <td style={styles.td}>{r.quantity}</td>
+              <td style={styles.td}>{r.remarks ?? '—'}</td>
+              <td style={styles.td}>{new Date(r.createdAt).toLocaleDateString()}</td>
+              <td style={styles.td}><StatusBadge status={r.status} /></td>
+              <td style={styles.td}>
+                <button onClick={() => handleApprove(r._id)} style={styles.approveBtn}>Approve</button>
+                <button onClick={() => handleReject(r._id)} style={styles.rejectBtn}>Reject</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {totalPages > 1 && (
+        <div style={styles.pagination}>
+          <button disabled={page <= 1} onClick={() => load(page - 1)} style={styles.pageBtn}>Previous</button>
+          <span style={{ padding: '0 1rem' }}>{page} / {totalPages}</span>
+          <button disabled={page >= totalPages} onClick={() => load(page + 1)} style={styles.pageBtn}>Next</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const styles: Record<string, React.CSSProperties> = {
+  page: { maxWidth: '1100px', margin: '2rem auto', padding: '0 1rem' },
+  heading: { marginBottom: '1rem', fontSize: '1.5rem' },
+  table: { width: '100%', borderCollapse: 'collapse', background: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' },
+  headerRow: { background: '#f8fafc' },
+  th: { padding: '0.75rem 1rem', textAlign: 'left', fontSize: '0.8rem', fontWeight: 700, color: '#64748b', borderBottom: '1px solid #e2e8f0', textTransform: 'uppercase' },
+  row: { borderBottom: '1px solid #f1f5f9' },
+  td: { padding: '0.75rem 1rem', fontSize: '0.9rem' },
+  approveBtn: { marginRight: '0.5rem', padding: '0.25rem 0.75rem', background: '#10b981', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' },
+  rejectBtn: { padding: '0.25rem 0.75rem', background: '#ef4444', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' },
+  pagination: { display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1rem' },
+  pageBtn: { padding: '0.4rem 1rem', borderRadius: '4px', border: '1px solid #cbd5e1', cursor: 'pointer', background: '#fff' },
+};
+
+export default PendingRequests;
