@@ -39,7 +39,7 @@ export const approve = async (req: AuthRequest, res: Response, next: NextFunctio
 
 export const reject = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    const request = await svc.rejectRequest(req.params.id, req.user!.id, req.body.reason);
+    const request = await svc.rejectRequest(req.params.id, req.user!.id, req.body?.reason);
     res.json({ request });
   } catch (err) { next(err); }
 };
