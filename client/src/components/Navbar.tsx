@@ -1,9 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const { pathname } = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const links =
     user?.role === 'admin'
@@ -72,6 +74,35 @@ export default function Navbar() {
         })}
 
         <div style={{ width: 1, height: 28, background: 'rgba(255,255,255,0.2)', margin: '0 8px' }} />
+
+        <button
+          onClick={toggleTheme}
+          title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          style={{
+            background: 'rgba(255,255,255,0.12)',
+            border: '1px solid rgba(255,255,255,0.2)',
+            color: '#fff',
+            padding: '7px 10px',
+            borderRadius: 8,
+            cursor: 'pointer',
+            fontSize: '1rem',
+            fontFamily: 'inherit',
+            transition: 'all 0.2s ease',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.22)';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255,255,255,0.12)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
+          {theme === 'light' ? '🌙' : '☀️'}
+        </button>
 
         <span style={{ opacity: 0.8, fontSize: '0.85rem', fontWeight: 500, marginRight: 4 }}>
           {user?.name}
